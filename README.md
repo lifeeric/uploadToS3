@@ -37,4 +37,17 @@ $ for f in *; do echo $f; echo " == "; cat "$f"; done
 ```
 
 
+##### Watcher
+it watches for a files in directory, if new file are created it so upload it to s3
+```bash
+inotifywait -m -r -e create testDir/ | while read DIRECTORY EVENT FILE; do   
+	case $EVENT in CREATE*)         
+		for d in testDir/*/*; do uploadToS3 $d; done;            
+		;;    
+	esac; 
+done
+
+```
+
+
 [@lifeeric](https://github.com/lifeeric)

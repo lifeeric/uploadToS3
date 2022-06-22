@@ -13,11 +13,12 @@ import json
 errors = []
 path = None
 try:
-	path = sys.argv[1]
+    path = sys.argv[1]
 except IndexError as e:
-	print('pass the file directory path.')
-	print('Example: python index.py ~/test/')
-	sys.exit('')
+    print('pass the file directory path.')
+    print('Example: python index.py ~/test/')
+    sys.exit('')
+
 
 def upload_file(_s3_client, _file_name, _bucket, _object_name=None):
     """Upload files to an S3 bucket
@@ -37,6 +38,7 @@ def upload_file(_s3_client, _file_name, _bucket, _object_name=None):
         print('[UPLOADING]', _object_name)
         time.sleep(1)
         response = _s3_client.upload_file(_file_name, _bucket, _object_name)
+        os.system(f"rm -f {_object_name}")
     except ClientError as e:
         print('[Error]', e)
         errors.append(_file_name)
@@ -47,17 +49,15 @@ def upload_file(_s3_client, _file_name, _bucket, _object_name=None):
     return True
 
 
-
 def main():
     boto3_session = boto3.session.Session()
-    s3_client =  boto3_session.client('s3')
+    s3_client = boto3_session.client('s3')
     thread_list = []
 
     for root, dirs, files in os.walk(path):
         for file in files:
             _file_name = os.path.join(root, file)
             thread = threading.Thread(target=upload_file, args=(s3_client, _file_name, 'hdpbxrecordings',))  # noqa: E501
-
             thread_list.append(thread)
 
     for thread in thread_list:
@@ -70,5 +70,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-    with open(f"/home/centos/logs/uploadToS3-uploading-{datetime.now()}.json", "w") as f:
-        json.dump(errors, f)
+    if len(errors):
+        with open(f"/home/centos/logs/uploadToS3-uploading-{datetime.now()}.json", "w") as f:   # noqa: E501
+            json.dump(errors, f)
