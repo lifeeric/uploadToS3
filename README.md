@@ -11,12 +11,19 @@ $ source env/bin/activate
 ```
 
 
-#### install 
+## install 
 
 ```bash
 $ pip install boto3
 ```
 
+##### S3 configure
+you need to install aws-cli in your machine and run the below command and pass the correct APIs accessKey & Secret Access Key:
+```bash
+$ aws configure
+
+```
+you can also do it manully
 #### run
 you have pass the directory path as flag (argument) to the script and it will get all files from directory & will upload it to S3.
 ```bash
