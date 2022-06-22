@@ -1,4 +1,5 @@
 # Move files to S3
+moves files to S3 and deletes from the machine. it's super fast if you have hundreds of file cause it's thread based script.
 
 First of all, you have to install the `boto3` and `threading` if you don't have in the system.
 
