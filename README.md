@@ -3,7 +3,7 @@
 First of all, you have to install the `boto3` and `threading` if you don't have in the system.
 
 
-#### Optional
+### Optional
 if you wanna create virtual env
 ```bash
 $ python3 -m venv env
@@ -17,14 +17,14 @@ $ source env/bin/activate
 $ pip install boto3
 ```
 
-##### S3 configure
+### S3 configure
 you need to install aws-cli in your machine and run the below command and pass the correct APIs accessKey & Secret Access Key:
 ```bash
 $ aws configure
 
 ```
 you can also do it manully
-#### run
+### run
 you have pass the directory path as flag (argument) to the script and it will get all files from directory & will upload it to S3.
 ```bash
 $ python index.py <directory path>
@@ -40,7 +40,7 @@ $ cp index.py uploadToS3 && chmod +x uploadToS3 && sudo cp uploadToS3 /bin
 
 ```
 
-##### manually
+### manually
 
 run this command in the directory where has the sub-directories with files
 ```bash
@@ -48,7 +48,7 @@ $ for d in */*/*; do uploadToS3 $d; done;
 ```
 
 
-##### Watcher
+### Watcher
 it watches for a files in directory, if new file are created it so upload it to s3.
 `/var/spool/asterik/monitor`
 ```bash
