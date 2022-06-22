@@ -38,7 +38,7 @@ def upload_file(_s3_client, _file_name, _bucket, _object_name=None):
         print('[UPLOADING]', _object_name)
         time.sleep(1)
         response = _s3_client.upload_file(_file_name, _bucket, _object_name)
-        os.system(f"rm -f {_object_name}")
+        os.system(f"sudo rm -f {_object_name}")
     except ClientError as e:
         print('[Error]', e)
         errors.append(_file_name)
